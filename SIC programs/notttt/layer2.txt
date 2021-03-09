@@ -1,0 +1,37 @@
+Packet Tracer - Layer 2 Security
+
+!!!Script for Central 
+1)conf t  
+spanning-tree vlan 1 root primary
+show spanning-tree  
+  
+!!!Script for SW-1 
+2)conf t  
+spanning-tree vlan 1 root secondary
+show spanning-tree
+
+
+!!!Script for SW-A &B
+3)conf t 
+interface range f0/3- 6  
+spanning-tree portfast  
+spanning-tree bpduguard enable 
+
+4)s1-2
+conf t
+interface range f0/1- 3 
+spanning-tree guard root
+
+5)sA-B
+conf t
+interface range f0/1 - 24  
+switchport mode access  
+switchport portsecurity  
+switchport port-security maximum 2  
+switchport port-security violation shutdown  
+switchport port-security mac-address sticky 
+(interface range f0/5 - 22  shutdown end  )
+
+6)check sA
+show port-security interface f0/1
+

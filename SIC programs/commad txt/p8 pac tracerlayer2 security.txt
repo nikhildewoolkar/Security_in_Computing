@@ -1,0 +1,31 @@
+packet tracer layer 2 security
+go to  central switch
+central#show spanning -tree
+config#spanning-tree vlan1 root primary
+show spanning -tree
+
+
+go to switch  1
+sq-1 config#spanning-tree valan root secondary
+	#show spanning -tree
+
+go to switch a&b perform this commands
+switch(con)#interface range F0/3-6
+	spanning -tree portfast 
+
+enable BPDU guard on switch a and b
+	interface range f o/3-6
+	spanning -tree-enable
+enables root guard on switch 1 and 2
+switch config#interface range f)/1 -3
+switch (con-if range)#spanninf -tree guard root
+
+go to switch a and b 
+swict config#interface range f/1-24
+	switchport made access
+	sawitchport port-security
+	sawitchport port-security maximum2
+	sawitchport port-security violation shutdown
+	sawitchport port-security mac-adress sticky
+
+go to s-1 and type last command #show port security interface f0/1

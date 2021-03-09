@@ -1,0 +1,35 @@
+acces control list(ACL)
+ go to routee then CLI
+router #conft
+router(config)#access-list 100 permit tep 172.22.34.64 0.0.0.31 host
+		172.22.32.62 eq ftp
+		
+
+		access-list 100 permit temp 172.22.34.64 0.0.0.31 host
+		172.22.32.62
+		interface gig 0/0
+		ip access-group 100 in
+
+go to pc1 cmd ping pc1 to server
+c:>ping 172.22.34.62
+	ftp  172.22.34.62
+
+
+	username:cisco
+
+	password:cisco
+ftp>
+  go to router cli
+router(config)#ip access-list extended HTTP_ONLY
+	permit ftp 172.22.34.96 0.0.0.15 host
+	172.22.34.62 eq www
+	permit iemp 172.22.34.96 0.0.0.15 host
+	172.22.34.62
+	int gig 0/1
+
+router(config-if)#ip access-group HTTP_only
+pc2 web browser 
+link-> enter http/:/192.22.34.62
+click go
+cisco page will be displayed
+

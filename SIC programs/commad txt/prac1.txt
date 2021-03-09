@@ -1,0 +1,85 @@
+1.now configuring ospf in all routers
+
+click on router 1 and then CLI
+router >enable
+router#enable
+router(config)#router ospf 1
+router(config-router)#network 192.168.1.1 0.0.0.255 area 0
+router(config-router)#network 10.1.1.0 0.0.0.3 area 0
+router(config-router)#exit
+router(config)#exit
+router#show ip route[displays ospf connection]
+ do the same for both router
+
+2.click on r1 go to CLI and 
+router>enable
+router#conf t
+router(config-router)#router ospf 1
+router(config-router)#area 0 authentication manage-direct
+router(config-router)#exit
+router(config)#interface gig 0/0
+router(config-if)#ip ospf message -digest-key1 md5 MD5123
+exit
+exit
+show ip ospf interface
+2 both routers
+  
+
+3.configuring NTP
+clcik on server 1 and then services click on NTP
+AND THEN ENABLE IT
+ENTER KEY AS 1 AND PASSWORK AS NTP123
+r1
+router>enable
+router#onft
+router(config)#ntp server 192.168.1.5
+		#ntp update-calender
+		#ntp authenticate
+		#ntp trusted-key1
+		#ntp authentication-key1 md5 NTP123
+		#serviuce timestamp log datatime msec
+		exit
+router show clock
+
+
+4.syslog
+
+click on router 1 cli 
+enable
+conft
+config#logging host 198.168.1.5
+	exit
+	show ip route
+server and services
+clcik on syslog then services
+
+
+5.ssh
+r1 cLI
+enable 
+conft
+config#ip domain-name ccnasecurity-com
+	hostname sshrouter
+sshrouter(config)#username SSHdomain privilege is secret ssh123
+	line vty o 4
+config-line config# logic local 
+	transport input ssh
+	crypto key generate rsa give :1024
+	exit
+sshrouter(config)#ex
+sshrouter#show ip ssh 
+	ssh enabled
+for op 
+clcik on r2
+router #telnet 10.0.0..1
+trying .....open
+conection closed by foreign test
+router#ssh -l SSHdomain 10.0.0.1
+	pass:ssh123
+sshrouter#show ip route
+ check from pc 
+click pc cmd
+c:\>ssh -lSSHdomain 10.0.0.1
+password:ssh123
+sshrouter#
+

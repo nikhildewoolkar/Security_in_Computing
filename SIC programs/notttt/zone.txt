@@ -1,0 +1,50 @@
+(R2)ssh
+(config)#ip domain-name ccnasecurity.com
+hostname sshrouter
+usernme SSHadmin privilege 15 secret ssh123
+line vty 0 4
+login local
+transport input ssh
+crypto key generate rsa
+1024
+exit
+#show ip ssh(enable)
+
+R3(firewall zone)
+show version 
+conf t
+license boot module c1900 technology-package securityk9
+exit
+show version 
+copy run start
+reload
+
+(config)zone security IN-ZONE 
+exit  
+zone security OUT-ZONE 
+exit  
+
+access-list 101 permit ip 192.168.3.0 0.0.0.255 any 
+class-map type inspect match-all IN-NET-CLASS-MAP  
+match access-group 101  
+exit  
+policy-map type inspect IN-2-OUT-PMAP
+class type inspect IN-NET-CLASS-MAP
+inspect
+exit
+exit
+zone-pair security IN-2-OUT-ZPAIR source IN-ZONE destination OUT-ZONE
+service-policy type inspect IN-2-OUT-PMAP 
+exit
+int g0/0
+ zone-member security IN-ZONE
+exit
+int s0/1/0
+ zone-member security OUT-ZONE
+exit
+
+pc-c -ping 192.168.3.3-req time out
+ssh -l SSHadmin 10.2.2.2
+
+
+R3#show policy-map type inspect zone-pair sessions

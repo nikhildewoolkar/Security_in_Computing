@@ -1,0 +1,77 @@
+#clcik on switch -A CLI
+switch>enble
+conft
+config#int vlan1
+	ip addrr 1-0.101.117.50 255.255.355.240
+	no shut
+	ip default-gateway 10.101.117.49
+do the same for both switch
+clcik on cmd
+ping 10..101.117.35
+
+router
+enable
+conft
+access-list 199 permit tcp
+10.101.117.32 0.0.0.15 10.101.117.0 0.0.0.32 eq 22
+
+access-list 199 permit itmp
+10.101.117.32 0.0.0.15 10.101.117.0 0.0.0.32
+
+#interface gig 0/2
+config -if#ip access-group 199 out
+
+enable ssh on switch c tsst it fro  pc-a to pc-b
+to enable ssh
+switch c- cli
+en
+conft
+ip domain-name cenasecurity.com
+ hostname sshrouter
+username SSHdomain privilege is secret ssh123
+line vty 04
+login local
+transport input ssh
+crypoto key generte give:1024
+	ex
+ex
+show ip ssh
+ssh should be enabled
+
+go to pc -bcmd
+c:\ssh-l sshdomain 10...
+password :ssh123
+ssh router 
+ go to pc -a cmd
+c:ssh-lSSHdomain 10.101.117.2
+connection timeout 
+conection is restricted to pc a and kept open  for pc -b on req
+
+
+to enable ssh
+switch b- cli
+en
+conft
+ip domain-name cenasecurity.com
+ hostname sshrouter
+username SSHdomain privilege is secret ssh123
+line vty 04
+login local
+transport input ssh
+crypoto key generte give:1024
+	ex
+ex
+show ip ssh
+ssh should be enabled
+pc a cmd
+c:ssh-l SSHdomain 10....
+ pss
+
+go to r1 cli
+en conft
+interface gig 0/1
+ip access-group 197 in
+ip access-group 199 in
+interface gig 0/0
+ex
+pc a cmd ssh-l SSHdomain 10...same as below

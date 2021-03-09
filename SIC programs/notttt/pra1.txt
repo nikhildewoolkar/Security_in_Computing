@@ -1,0 +1,60 @@
+routing
+router ospf 1
+network 192.168.1.0 0.0.0.255 area 0
+network 10.1.1.0 0.0.0.3 area 0
+exit
+show ip route
+
+Authentication ospf
+router ospf 1
+area 0 authentication message-digest
+exit
+int gig 0/0
+ip ospf message-digest-key 1 md5 MD5123
+exit
+int gig 0/0
+ip ospf message-digest-key 1 md5 MD5123
+exit
+exit
+show ip ospf interface
+
+
+Configure NTP
+ntp-service-enable-key:1-pwd:NTP123
+conf t
+ntp server 192.168.1.5
+ntp update-calendar
+ntp authenticate
+ntp trusted-key 1
+ntp authetication-key 1 md5 NTP123
+service time stamps log datetime msec
+exit
+show clock
+
+for syslog
+enable
+conf t
+logging host 192.168.1.5
+exit
+shoe ip route
+server-services-syslog-op
+
+configure ssh
+enable
+conf t
+(config)#ip domain-name ccnasecurity.com
+hostname sshrouter
+usernme SSHadmin privilege 15 secret ssh123
+line vty 0 4
+login local
+transport input ssh
+crypto key generate rsa
+1024
+exit
+#show ip ssh(enable)
+
+
+
+
+
+

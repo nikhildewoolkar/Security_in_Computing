@@ -1,0 +1,59 @@
+!!!Script for R1  
+!!!Part 1 
+config t 
+username Admin1 secret admin1pa55 
+aaa new-model 
+aaa authentication login default local 
+line console 0   
+login authentication default  
+
+!!!Part 2  
+ip domain-name ccnasecurity.com 
+hostname sshrouter
+crypto key generate rsa  
+1024  
+aaa authentication login SSH-LOGIN local 
+line vty 0 4  
+login authentication SSHLOGIN  
+transport input ssh 
+
+
+
+TACACS server- services-aaa-on-type:TACACS-cname:R1-cIP:192.168.2.1-secret:tacacspa55 -add-username:Admin2-pwd:admin2pa55
+
+
+
+!!!!Script for R2  
+
+conf t  
+username Admin2 secret admin2pa55 
+tacacs-server host 192.168.2.2 
+tacacs-server key tacacspa55 
+aaa new-model  
+aaa authentication login default group tacacs+ local 
+line console 0  
+login authentication default  
+exit
+router>en
+username: Admin2
+password: admin2pa55
+
+
+radius server- services-aaa-on-type:radius-cname:R3-cIP:192.168.3.1-secret:radiuspa55 -add-username:Admin3-pwd:admin3pa55
+
+
+!!!!Script for R3  
+conf t 
+username Admin3 secret admin3pa55 
+radius-server host 192.168.3.2  
+radius-server key radiuspa55 
+aaa new-model 
+aaa authentication login default group radius local 
+line console 0 
+login authentication default 
+exit
+router>en
+username: Admin3
+password: admin3pa55
+
+
